@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Cadastro de Clientes</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_cad_cliente">Clientes</string>
+    <string name="label_name">Nome</string>
+    <string name="label_address">Endereço</string>
+    <string name="label_email">Email</string>
+    <string name="label_phone">Telefone</string>
+    <string name="label_menu_salvar">Salvar</string>
+    <string name="label_menu_cancelar">Cancelar</string>
+    <string name="warning">Aviso</string>
+    <string name="error">Erro</string>
+    <string name="save_sucess">Salvo com sucesso</string>
+    <string name="error_empity_fields">Erro ao tentar salvar, existem campos em branco!</string>
+    <string name="cliente">Cliente</string>
+</resources>

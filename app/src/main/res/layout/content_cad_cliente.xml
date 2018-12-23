@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".CadClienteActivity"
+    tools:showIn="@layout/activity_cad_cliente">
+
+    <TextView
+        android:id="@+id/idtxtName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/idedtName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/idtxtName"
+        app:layout_constraintStart_toStartOf="@+id/idtxtName"
+        app:layout_constraintTop_toBottomOf="@+id/idtxtName" />
+
+    <TextView
+        android:id="@+id/idtxtEndereco"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idedtName" />
+
+    <EditText
+        android:id="@+id/idedtAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/idtxtEndereco"
+        app:layout_constraintStart_toStartOf="@+id/idtxtEndereco"
+        app:layout_constraintTop_toBottomOf="@+id/idtxtEndereco" />
+
+    <TextView
+        android:id="@+id/idtxtEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idedtAddress" />
+
+    <EditText
+        android:id="@+id/idedtEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="@+id/idtxtEmail"
+        app:layout_constraintStart_toStartOf="@+id/idtxtEmail"
+        app:layout_constraintTop_toBottomOf="@+id/idtxtEmail" />
+
+    <TextView
+        android:id="@+id/idtxtPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idedtEmail" />
+
+    <EditText
+        android:id="@+id/idedtPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="@+id/idtxtPhone"
+        app:layout_constraintStart_toStartOf="@+id/idtxtPhone"
+        app:layout_constraintTop_toBottomOf="@+id/idtxtPhone" />
+</android.support.constraint.ConstraintLayout>
