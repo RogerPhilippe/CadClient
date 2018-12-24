@@ -13,4 +13,7 @@
     <string name="save_sucess">Salvo com sucesso</string>
     <string name="error_empity_fields">Erro ao tentar salvar, existem campos em branco!</string>
     <string name="cliente">Cliente</string>
+    <string name="connect_success">Conexão criada com sucesso!</string>
+    <string name="error_db_connection">Erro ao tentar conectar ao banco!</string>
+    <string name="title_error">Erro</string>
 </resources>

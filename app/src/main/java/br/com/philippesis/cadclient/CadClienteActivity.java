@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class CadClienteActivity extends AppCompatActivity {
+public class CadClienteActivity extends BaseActivity {
 
     private EditText edtName;
     private EditText edtAddress;
@@ -96,36 +96,6 @@ public class CadClienteActivity extends AppCompatActivity {
         edtAddress.setText(null);
         edtEmail.setText(null);
         edtPhone.setText(null);
-    }
-
-    // Verifica se valor está vazio
-    private boolean isEmpityValue(String valor) {
-
-        return TextUtils.isEmpty(valor) || valor.trim().isEmpty();
-
-    }
-
-    // Valida email, se está vazio ou se está digitado corretamente
-    private boolean isValidEmail(String email) {
-
-        return !isEmpityValue(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
-
-    }
-
-    private void setMsg(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
-    private String getGap() {
-        return " ";
-    }
-
-    private void genericAlert(String title, String msg, String btn) {
-        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-        dlg.setTitle(title);
-        dlg.setMessage(msg);
-        dlg.setNeutralButton(btn, null);
-        dlg.show();
     }
 
 }
