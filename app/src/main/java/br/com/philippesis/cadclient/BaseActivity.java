@@ -1,6 +1,7 @@
 package br.com.philippesis.cadclient;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,8 @@ import android.widget.Toast;
 public class BaseActivity extends AppCompatActivity {
 
     // Dialog genérico de um botão
-    protected void genericAlert(String title, String msg, String btn) {
-        AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+    protected static void genericAlert(Context context, String title, String msg, String btn) {
+        AlertDialog.Builder dlg = new AlertDialog.Builder(context);
         dlg.setTitle(title);
         dlg.setMessage(msg);
         dlg.setNeutralButton(btn, null);
@@ -20,8 +21,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     // Toast genérico
-    protected void setMsg(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    protected static void setMsg(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     // Retorna um espaço em branco
@@ -44,7 +45,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     // Snackbar genérico
-    protected void genericSnackbar(ConstraintLayout layoutContent, String msg, int length_long, String btn) {
+    protected static void genericSnackbar(ConstraintLayout layoutContent, String msg, int length_long, String btn) {
 
         Snackbar.make(layoutContent, msg, length_long)
                 .setAction(btn, null).show();
