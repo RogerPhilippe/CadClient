@@ -1,16 +1,15 @@
 package br.com.philippesis.cadclient;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import br.com.philippesis.cadclient.domain.entities.Client;
+import br.com.philippesis.cadclient.domain.repositories.ClientRepository;
+import br.com.philippesis.cadclient.utils.GetConnection;
 
 public class CadClienteActivity extends BaseActivity {
 
@@ -22,6 +21,11 @@ public class CadClienteActivity extends BaseActivity {
     private String address = null;
     private String email = null;
     private String phone = null;
+
+    private Client client;
+    private ClientRepository clientRepository;
+
+    private GetConnection getConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,12 @@ public class CadClienteActivity extends BaseActivity {
 
         switch (id) {
             case R.id.idActionSalvar:
-                if(isValidValues()) {
-                    genericAlert(getString(R.string.warning), (getString(R.string.cliente) + getGap() + name + getGap() + getString(R.string.save_sucess) ), "OK");
+                if(save()) {
+                    genericAlert(this, "Aviso", "Salvo com Sucesso!", "OK");
                     limpaCampos();
                     edtName.requestFocus();
                 } else {
-                    genericAlert(getString(R.string.error), getString(R.string.error_empity_fields), "OK");
+                    genericAlert(this, "", "Erro ao tentar salvar.\nVerifique se preencheu corretamente todos os campos.", "OK");
                 }
                 break;
             case R.id.idActionCancelar:
@@ -67,35 +71,52 @@ public class CadClienteActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Validação dos campos
-    private boolean isValidValues() {
+    private void limpaCampos() {
+        edtName.setText(null);
+        edtAddress.setText(null);
+        edtEmail.setText(null);
+        edtPhone.setText(null);
+    }
+
+    private boolean save() {
+
+        boolean result = false;
+        boolean camposNulos;
 
         name = edtName.getText().toString();
         address = edtAddress.getText().toString();
         email = edtEmail.getText().toString();
         phone = edtPhone.getText().toString();
 
-        boolean res = false;
-
-        if(res = isEmpityValue(name)) {
+        if(camposNulos = isEmpityValue(name)) {
             edtName.requestFocus();
-        } else if(res = isEmpityValue(address)) {
+        } else if(camposNulos = isEmpityValue(address)) {
             edtAddress.requestFocus();
-        } else if(res = !isValidEmail(email)) {
+        } else if(camposNulos = !isValidEmail(email)) {
             edtEmail.requestFocus();
-        } else if(res = isEmpityValue(phone)) {
+        } else if(camposNulos = isEmpityValue(phone)) {
             edtPhone.requestFocus();
         }
 
-        // Precisa ser negado, póis caso entre em um dos ifs, será true.
-        return !res;
-    }
+        if(!camposNulos) {
 
-    private void limpaCampos() {
-        edtName.setText(null);
-        edtAddress.setText(null);
-        edtEmail.setText(null);
-        edtPhone.setText(null);
+            Client client = new Client();
+            client.setmName(name);
+            client.setmAddress(address);
+            client.setmEmail(email);
+            client.setmPhone(phone);
+
+            getConnection = new GetConnection();
+
+            clientRepository = new ClientRepository(getConnection.createConnection(this));
+
+            clientRepository.save(client);
+
+            result = true;
+
+        }
+
+        return result;
     }
 
 }
