@@ -93,4 +93,10 @@ public class MainActivity extends BaseActivity {
         }
 
     }
+
+    @Override
+    protected void onStart() {
+        setMsg(this, "Regressei. :-)");
+        super.onStart();
+    }
 }

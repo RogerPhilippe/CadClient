@@ -34,6 +34,7 @@ public class CadClienteActivity extends BaseActivity {
         setContentView(R.layout.activity_cad_cliente);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         edtName = (EditText) findViewById(R.id.idedtName);
         edtAddress = (EditText) findViewById(R.id.idedtAddress);
@@ -56,6 +57,10 @@ public class CadClienteActivity extends BaseActivity {
         int id = item.getItemId();
 
         switch (id) {
+            case android.R.id.home:
+                finish();
+                break;
+
             case R.id.idActionSalvar:
                 if(save()) {
                     genericAlert(this, "Aviso", "Salvo com Sucesso!", "OK");
@@ -65,11 +70,13 @@ public class CadClienteActivity extends BaseActivity {
                     genericAlert(this, "", "Erro ao tentar salvar.\nVerifique se preencheu corretamente todos os campos.", "OK");
                 }
                 break;
+
             case R.id.idActionCancelar:
                 finish();
                 break;
             default:
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -136,6 +143,7 @@ public class CadClienteActivity extends BaseActivity {
         return result;
     }
 
+    // Pegar parâmetros vindos do Recycleview da MainActivity
     private boolean getParams() {
 
         boolean isParams = false;
