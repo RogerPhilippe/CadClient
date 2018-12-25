@@ -21,6 +21,7 @@ public class CadClienteActivity extends BaseActivity {
     private String address = null;
     private String email = null;
     private String phone = null;
+    private boolean isClient;
 
     private Client client;
     private ClientRepository clientRepository;
@@ -38,6 +39,8 @@ public class CadClienteActivity extends BaseActivity {
         edtAddress = (EditText) findViewById(R.id.idedtAddress);
         edtEmail = (EditText) findViewById(R.id.idedtEmail);
         edtPhone = (EditText) findViewById(R.id.idedtPhone);
+
+        isClient = getParams();
 
     }
 
@@ -100,23 +103,60 @@ public class CadClienteActivity extends BaseActivity {
 
         if(!camposNulos) {
 
-            Client client = new Client();
-            client.setmName(name);
-            client.setmAddress(address);
-            client.setmEmail(email);
-            client.setmPhone(phone);
-
             getConnection = new GetConnection();
 
             clientRepository = new ClientRepository(getConnection.createConnection(this));
 
-            clientRepository.save(client);
+            if(!isClient) {
+
+                // Cliente novo
+                client = new Client();
+                client.setmName(name);
+                client.setmAddress(address);
+                client.setmEmail(email);
+                client.setmPhone(phone);
+
+                clientRepository.save(client);
+
+            } else {
+
+                // Atualizar cliente
+                client.setmName(name);
+                client.setmAddress(address);
+                client.setmEmail(email);
+                client.setmPhone(phone);
+                clientRepository.update(client);
+
+            }
 
             result = true;
 
         }
 
         return result;
+    }
+
+    private boolean getParams() {
+
+        boolean isParams = false;
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null && bundle.containsKey("client")) {
+
+            client = (Client) bundle.getSerializable("client");
+
+            edtName.setText(client.getmName());
+            edtAddress.setText(client.getmAddress());
+            edtEmail.setText(client.getmEmail());
+            edtPhone.setText(client.getmPhone());
+
+            isParams = true;
+
+        }
+
+        return isParams;
+
     }
 
 }

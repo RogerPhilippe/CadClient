@@ -69,6 +69,7 @@ public class ClientRepository {
 
                 client.setmId(resultSet.getInt(resultSet.getColumnIndex("ID")));
                 client.setmName(resultSet.getString(resultSet.getColumnIndex("NAME")));
+                client.setmAddress(resultSet.getString(resultSet.getColumnIndex("ADDRESS")));
                 client.setmEmail(resultSet.getString(resultSet.getColumnIndex("EMAIL")));
                 client.setmPhone(resultSet.getString(resultSet.getColumnIndex("PHONE")));
 

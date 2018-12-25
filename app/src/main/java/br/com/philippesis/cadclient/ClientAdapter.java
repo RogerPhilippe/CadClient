@@ -1,5 +1,8 @@
 package br.com.philippesis.cadclient;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +28,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
         View view = layoutInflater.inflate(R.layout.line_client_recycleview, parent, false);
 
-        ViewHolderClient viewHolderClient = new ViewHolderClient(view);
+        ViewHolderClient viewHolderClient = new ViewHolderClient(view, parent.getContext());
 
         return viewHolderClient;
     }
@@ -52,11 +55,29 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
         protected TextView txtTitleLineRecycleview;
         protected TextView txtSubtitleLineRecycleview;
 
-        public ViewHolderClient(View itemView) {
+        public ViewHolderClient(View itemView, final Context context) {
             super(itemView);
 
             txtTitleLineRecycleview = (TextView) itemView.findViewById(R.id.idtxtTitleLineRecycleview);
             txtSubtitleLineRecycleview = (TextView) itemView.findViewById(R.id.idtxtSubtitleLineRecycleview);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    // Capturar objeto selecionado no Recycleview
+                    if(mDataClients.size() > 0) {
+
+                        Client client = mDataClients.get(getLayoutPosition());
+
+                        Intent intent = new Intent(context, CadClienteActivity.class);
+                        intent.putExtra("client", client);
+                        ((AppCompatActivity) context).startActivityForResult(intent, 1);
+
+                    }
+
+                }
+            });
 
         }
     }
