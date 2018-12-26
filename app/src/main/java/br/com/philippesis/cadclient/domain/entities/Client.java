@@ -1,12 +1,18 @@
 package br.com.philippesis.cadclient.domain.entities;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable {
 
     private int mId;
     private String mName;
     private String mAddress;
     private String mEmail;
     private String mPhone;
+
+    public Client() {
+        mId = 0;
+    }
 
     public int getmId() {
         return mId;

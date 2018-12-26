@@ -21,6 +21,7 @@ public class CadClienteActivity extends BaseActivity {
     private String address = null;
     private String email = null;
     private String phone = null;
+    private boolean isClient;
 
     private Client client;
     private ClientRepository clientRepository;
@@ -33,11 +34,14 @@ public class CadClienteActivity extends BaseActivity {
         setContentView(R.layout.activity_cad_cliente);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         edtName = (EditText) findViewById(R.id.idedtName);
         edtAddress = (EditText) findViewById(R.id.idedtAddress);
         edtEmail = (EditText) findViewById(R.id.idedtEmail);
         edtPhone = (EditText) findViewById(R.id.idedtPhone);
+
+        isClient = getParams();
 
     }
 
@@ -53,6 +57,10 @@ public class CadClienteActivity extends BaseActivity {
         int id = item.getItemId();
 
         switch (id) {
+            case android.R.id.home:
+                finish();
+                break;
+
             case R.id.idActionSalvar:
                 if(save()) {
                     genericAlert(this, "Aviso", "Salvo com Sucesso!", "OK");
@@ -62,11 +70,13 @@ public class CadClienteActivity extends BaseActivity {
                     genericAlert(this, "", "Erro ao tentar salvar.\nVerifique se preencheu corretamente todos os campos.", "OK");
                 }
                 break;
+
             case R.id.idActionCancelar:
                 finish();
                 break;
             default:
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -100,23 +110,61 @@ public class CadClienteActivity extends BaseActivity {
 
         if(!camposNulos) {
 
-            Client client = new Client();
-            client.setmName(name);
-            client.setmAddress(address);
-            client.setmEmail(email);
-            client.setmPhone(phone);
-
             getConnection = new GetConnection();
 
             clientRepository = new ClientRepository(getConnection.createConnection(this));
 
-            clientRepository.save(client);
+            if(!isClient) {
+
+                // Cliente novo
+                client = new Client();
+                client.setmName(name);
+                client.setmAddress(address);
+                client.setmEmail(email);
+                client.setmPhone(phone);
+
+                clientRepository.save(client);
+
+            } else {
+
+                // Atualizar cliente
+                client.setmName(name);
+                client.setmAddress(address);
+                client.setmEmail(email);
+                client.setmPhone(phone);
+                clientRepository.update(client);
+
+            }
 
             result = true;
 
         }
 
         return result;
+    }
+
+    // Pegar parâmetros vindos do Recycleview da MainActivity
+    private boolean getParams() {
+
+        boolean isParams = false;
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null && bundle.containsKey("client")) {
+
+            client = (Client) bundle.getSerializable("client");
+
+            edtName.setText(client.getmName());
+            edtAddress.setText(client.getmAddress());
+            edtEmail.setText(client.getmEmail());
+            edtPhone.setText(client.getmPhone());
+
+            isParams = true;
+
+        }
+
+        return isParams;
+
     }
 
 }

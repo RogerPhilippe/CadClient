@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    // Carrega os no Recycleview com dados vindos do banco de dados
+    // Carrega o Recycleview com dados vindos do banco de dados
     private void loadRecycleview() {
 
         // Objeto classe genérica para criar conexões
@@ -87,9 +87,11 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        // Caso código re requestCode sejá 1, (vindo do retorno da activity), recarrega o RecycleView
         if (requestCode == 1) {
             loadRecycleview();
         }
 
     }
+
 }
