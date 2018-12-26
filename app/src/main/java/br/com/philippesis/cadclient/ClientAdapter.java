@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,15 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mDataClients.size();
+        int retorno = 0;
+        try {
+            if(mDataClients != null || !mDataClients.isEmpty()) {
+                retorno = mDataClients.size();
+            }
+        } catch (Exception e) {
+            Log.e("Err-Cadapter: ", e.toString());
+        }
+        return retorno;
     }
 
     protected class ViewHolderClient extends RecyclerView.ViewHolder {
