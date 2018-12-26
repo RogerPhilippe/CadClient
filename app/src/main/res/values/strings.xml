@@ -8,6 +8,7 @@
     <string name="label_phone">Telefone</string>
     <string name="label_menu_salvar">Salvar</string>
     <string name="label_menu_cancelar">Cancelar</string>
+    <string name="label_menu_delete">Deletar</string>
     <string name="warning">Aviso</string>
     <string name="error">Erro</string>
     <string name="save_sucess">Salvo com sucesso</string>
