@@ -78,6 +78,7 @@ public class CadClienteActivity extends BaseActivity {
                 }
                 break;
             case R.id.idActionCancelar:
+                setMsg(this, "Nada alterado!");
                 finish();
                 break;
             case R.id.idActionDelete:
@@ -185,6 +186,7 @@ public class CadClienteActivity extends BaseActivity {
                         getConnection = new GetConnection();
                         clientRepository = new ClientRepository(getConnection.createConnection(CadClienteActivity.this));
                         clientRepository.delete(client.getmId());
+                        setMsg(CadClienteActivity.this, "Cliente "+client.getmName()+" excluído com sucesso!");
                         finish();
                     }
                 })
