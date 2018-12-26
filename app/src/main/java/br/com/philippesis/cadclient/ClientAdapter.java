@@ -1,9 +1,7 @@
 package br.com.philippesis.cadclient;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -88,6 +85,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
 
                         Intent intent = new Intent(context, CadClienteActivity.class);
                         intent.putExtra("client", client);
+                        intent.putExtra("type", 2);
                         ((AppCompatActivity) context).startActivityForResult(intent, 1);
 
                     }
@@ -99,30 +97,8 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ViewHolder
                 @Override
                 public boolean onLongClick(View v) {
                     final Client client = mDataClients.get(getLayoutPosition());
-                    Toast.makeText(context, "Excluindo cliente: "+client.getmName(), Toast.LENGTH_SHORT).show();
-
-                    AlertDialog.Builder alertDialogBulder = new AlertDialog.Builder(context);
-                    alertDialogBulder.setMessage("Deseja realmente excluir o cliente "+client.getmName()+"?").setCancelable(false)
-                            .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Excluir registro selecionado
-                                    getConnection = new GetConnection();
-                                    clientRepository = new ClientRepository(getConnection.createConnection(context));
-                                    clientRepository.delete(client.getmId());
-                                    Toast.makeText(context, "Cliente "+client.getmName()+" excluida!", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    BaseActivity.setMsg(context, "Nada alterado!");
-                                }
-                            });
-
-                    AlertDialog alert = alertDialogBulder.create();
-                    alert.setTitle("Confirmação");
-                    alert.show();
+                    BaseActivity.genericAlert(context, "Detalhes", "Client: "+client.getmName()+"\nEndereço: "+client.getmAddress()+"\nEmail: "+
+                            client.getmEmail()+"\nTelefone: "+client.getmPhone(), "OK");
                     return true;
                 }
             });

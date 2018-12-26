@@ -1,5 +1,7 @@
 package br.com.philippesis.cadclient;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -47,8 +49,14 @@ public class CadClienteActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        // Verifica se trata-se de um cadastro novo ou atuaização de cadastro existente para exibir no menu "Cancelar" ou "Deletar".
+        if(isClient) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_update_main, menu);
+        } else {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_main, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -60,7 +68,6 @@ public class CadClienteActivity extends BaseActivity {
             case android.R.id.home:
                 finish();
                 break;
-
             case R.id.idActionSalvar:
                 if(save()) {
                     genericAlert(this, "Aviso", "Salvo com Sucesso!", "OK");
@@ -70,9 +77,12 @@ public class CadClienteActivity extends BaseActivity {
                     genericAlert(this, "", "Erro ao tentar salvar.\nVerifique se preencheu corretamente todos os campos.", "OK");
                 }
                 break;
-
             case R.id.idActionCancelar:
+                setMsg(this, "Nada alterado!");
                 finish();
+                break;
+            case R.id.idActionDelete:
+                deletar();
                 break;
             default:
                 break;
@@ -164,7 +174,32 @@ public class CadClienteActivity extends BaseActivity {
         }
 
         return isParams;
+    }
 
+    private void deletar() {
+        AlertDialog.Builder alertDialogBulder = new AlertDialog.Builder(CadClienteActivity.this);
+        alertDialogBulder.setMessage("Deseja realmente excluir o cliente " + client.getmName() + "?").setCancelable(false)
+                .setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Excluir registro selecionado
+                        getConnection = new GetConnection();
+                        clientRepository = new ClientRepository(getConnection.createConnection(CadClienteActivity.this));
+                        clientRepository.delete(client.getmId());
+                        setMsg(CadClienteActivity.this, "Cliente "+client.getmName()+" excluído com sucesso!");
+                        finish();
+                    }
+                })
+                .setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        BaseActivity.setMsg(CadClienteActivity.this, "Nada alterado!");
+                    }
+                });
+
+        AlertDialog alert = alertDialogBulder.create();
+        alert.setTitle("Confirmação");
+        alert.show();
     }
 
 }

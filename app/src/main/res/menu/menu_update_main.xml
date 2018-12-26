@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.com.philippesis.cadclient.MainActivity">
+    <item
+        android:id="@+id/idActionSalvar"
+        android:title="@string/label_menu_salvar"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/idActionDelete"
+        android:title="@string/label_menu_delete"
+        app:showAsAction="ifRoom" />
+</menu>
